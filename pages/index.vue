@@ -1,9 +1,10 @@
 <template>
   <div>
-    <div v-if="isLoading()">
+    <div v-if="isLoading">
       Loading app...
     </div>
     <div v-else>
+      <weather :search-data="searchdata" />
       <h1>Welcome</h1>
       <p>
         You have reached the landing page of the Logoipsum company. Now, let's get started!
@@ -17,7 +18,7 @@
         A colleague from the IT department has already kindly prepared the API configuration in the store module of the web
         application. However, he did not have time to finish the work before holiday. You are now asked to complete the
         colleague's task. In particular, the store action needs to be finished and called, data committed to the application
-        state and bind the state to the UI. As for displaying the current weather conditions in the UI, the designer has not
+        state and bind the state to the UI. As for displaying the current weather conditions in the UI, the designer has notß
         given any particular instructions (you are free to design it). However, he thought that it would be nice to have an icon
         to depict the current weather condition.
       </p>
@@ -57,19 +58,32 @@
 </template>
 
 <script>
-import { mapMutations, mapGetters, mapActions } from 'vuex'
+import { mapMutations } from 'vuex'
+import weather from '~/components/weather.vue'
 
 export default {
+  components: { weather },
   layout: 'default',
+  data () {
+    return {
+      searchdata: {
+        name: 'basel'
+      }
+    }
+  },
+  computed: {
+    isLoading () {
+      // return this.$store.state.weather.isLoading
+      return false
+    }
+  },
   mounted () {
     this.END_LOADING()
   },
   methods: {
-    ...mapActions({
-      ...mapGetters(['isLoading']),
-      ...mapMutations(['END_LOADING']),
-      ...mapActions(['getWeather'])
-    })
+    ...mapMutations('weather', [
+      'END_LOADING'
+    ])
   }
 }
 </script>
