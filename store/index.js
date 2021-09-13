@@ -8,8 +8,7 @@ const weatherApiKey = '3978da9f7417a95247e8f31df0cf1f27'
 const weatherApiBaselUrl = `http://api.openweathermap.org/data/2.5/weather?appid=${weatherApiKey}`
 
 export const state = () => ({
-  loading: true, // app starts in loading mode
-  currentWeather: {}
+  loading: true// app starts in loading mode
 })
 
 export const getters = {

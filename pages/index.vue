@@ -81,7 +81,7 @@ export default {
     this.END_LOADING()
   },
   methods: {
-    ...mapMutations('weather', [
+    ...mapMutations([
       'END_LOADING'
     ])
   }

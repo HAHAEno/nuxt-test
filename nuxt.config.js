@@ -41,7 +41,7 @@ export default {
     // https://go.nuxtjs.dev/stylelint
     '@nuxtjs/stylelint-module',
     // https://go.nuxtjs.dev/tailwindcss
-    '@nuxtjs/tailwindcss',
+    '@nuxtjs/tailwindcss'
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
@@ -49,16 +49,24 @@ export default {
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
     '@nuxtjs/style-resources',
-    '@nuxtjs/toast'
+    '@nuxtjs/toast',
+    'cookie-universal-nuxt', ['cookie-universal-nuxt', { parseJSON: true }]
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
-  axios: {},
+  axios: {
+    proxy: true
+  },
+
+  proxy: {
+    '/base/': 'http://api.openweathermap.org/'
+  },
 
   styleResources: {},
 
   toast: {
-    position: 'top-right' // default position for toasts
+    position: 'top-right', // default position for toasts
+    duration: 2000
   },
 
   // Nuxt router config (because we deploy the web-app into Scilit Symfony app, we can use a base routing)
@@ -68,7 +76,7 @@ export default {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
-    babel:{
+    babel: {
       plugins: [
         ['@babel/plugin-proposal-private-methods', { loose: true }]
       ]

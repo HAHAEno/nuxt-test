@@ -1,5 +1,7 @@
 import axios from 'axios'
-import Cookies from 'js-cookie'
+// import Cookies from 'js-cookie'
+// import { deletePropety } from '../api/weatherApi'
+
 /*
  * Config for the OpenWeather API
  * @see https://openweathermap.org/
@@ -15,19 +17,12 @@ const mutations = {
   SET_CURRENTWEATHER: (state, data) => {
     state.currentWeather = data
   },
-  START_LOADING: (state) => {
-    state.loading = true
-  },
   SET_ISWEATHERLOADING: (state, data) => {
     state.isWeatherLoading = data
-  },
-  END_LOADING: (state) => {
-    state.loading = false
   }
 }
 const getters = {
-  isLoading: state => state.loading && state.loading === true,
-
+  isWeatherLoading: state => state.isWeatherLoading,
   currentWeatherData: (state) => {
     return state.currentWeather
   }
@@ -35,37 +30,33 @@ const getters = {
 
 const actions = {
   async getWeather ({ commit }) {
-    commit('START_LOADING')
+    // return new Promise((resolve, reject) => {
+    //   const params = {
+    //     q: 'Basel',
+    //     appid: weatherApiKey
+    //   }
+    //   deletePropety(params).then(
+    //     (res) => {
+    //       commit('SET_CURRENTWEATHER', res)
+    //       commit('SET_ISWEATHERLOADING', true)
+    //       Cookies.set('currentWeatherData', JSON.stringify(res))
+    //     }
+    //   )
+    //   resolve()
+    // })
 
     // todo - pull weather data for Basel
     const url = weatherApiBaselUrl
-    console.log(url)
     await axios.get(url)
       .then((response) => {
-        console.log(response.data)
+        this.$toast.success('success')
         commit('SET_CURRENTWEATHER', response.data)
         commit('SET_ISWEATHERLOADING', true)
-        Cookies.set('currentWeatherData', JSON.stringify(response.data))
+        this.$cookies.set('currentWeatherData', (response.data))
       })
-
-    // return new Promise((resolve, reject) => {
-    //   // todo - pull weather data for Basel
-    //   const url = weatherApiBaselUrl
-    //   console.log(url)
-    //   await axios.get(url)
-    //     .then((response) => {
-    //       console.log(response.data)
-    //       commit('SET_CURRENTWEATHER', response.data)
-    //       Cookies.set('currentWeatherData', JSON.stringify(response.data))
-    //       resolve()
-    //     })
-    //     .catch((error) => {
-    //       reject(error)
-    //     })
-    //     .finally(
-    //       commit('END_LOADING')
-    //     )
-    // })
+      .catch(() => {
+        this.$toast.error('error')
+      })
   }
 }
 export default {
