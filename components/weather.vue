@@ -1,15 +1,15 @@
 <template>
   <div v-if="isWeatherLoading" class="weather">
-    <div class="flex justify-around ">
+    <div class="weather-wrap">
       <div v-if="imgUrl" class="weather-text">
-        <img class="skew-y-0" width="“100px”" :src="imgUrl">
+        <img class="weather-img" :src="imgUrl">
       </div>
       <div>
-        <p class="text-left">
-          <span class="red">{{ currentWeather.name }},{{ currentWeather.sys.country }}</span>
+        <p class="weather-fontleft">
+          <span class="weather-fontleft-red">{{ currentWeather.name }},{{ currentWeather.sys.country }}</span>
           <span>{{ currentWeather.weather[0].description }}</span>
         </p>
-        <p class="text-left">
+        <p class="weather-fontleft">
           <span>
             {{ currentWeather.main.temp }} temperature from
             {{ currentWeather.main.temp_min }} to
@@ -17,9 +17,9 @@
             {{ currentWeather.wind.speed }} m/s. clouds
             {{ currentWeather.clouds.all }} %,{{ currentWeather.main.pressure }}hpa</span>
         </p>
-        <p class="text-left">
+        <p class="weather-fontleft">
           Geo coord
-          <span class="red">[{{ currentWeather.coord.lon }}, {{ currentWeather.coord.lat }}]</span>
+          <span class="weather-fontleft-red">[{{ currentWeather.coord.lon }}, {{ currentWeather.coord.lat }}]</span>
         </p>
       </div>
     </div>
@@ -78,12 +78,24 @@ export default {
 
 <style lang="scss" scoped>
 .weather {
+  &-wrap {
+    @apply flex justify-around;
+  }
+
   &-text {
     @apply w-24 md:w-36 flex items-center;
   }
 
-  .red {
-    @apply text-red-300;
+  &-img {
+    @apply skew-y-0 w-28;
+  }
+
+  &-fontleft {
+    @apply text-left;
+
+    &-red {
+      @apply text-red-300;
+    }
   }
 }
 
