@@ -1,5 +1,4 @@
 import axios from 'axios'
-// import Cookies from 'js-cookie'
 // import { deletePropety } from '../api/weatherApi'
 
 /*
@@ -49,10 +48,10 @@ const actions = {
     const url = weatherApiBaselUrl
     await axios.get(url)
       .then((response) => {
-        this.$toast.success('success')
         commit('SET_CURRENTWEATHER', response.data)
         commit('SET_ISWEATHERLOADING', true)
         this.$cookies.set('currentWeatherData', (response.data))
+        this.$toast.success('success')
       })
       .catch(() => {
         this.$toast.error('error')
@@ -60,6 +59,7 @@ const actions = {
   }
 }
 export default {
+  namespaced: true,
   state,
   mutations,
   getters,

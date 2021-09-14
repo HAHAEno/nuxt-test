@@ -55,12 +55,12 @@ export default {
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
-    proxy: true
+    // proxy: true
   },
 
-  proxy: {
-    '/base/': 'http://api.openweathermap.org/'
-  },
+  // proxy: {
+  //   '/base/': 'http://api.openweathermap.org/'
+  // },
 
   styleResources: {},
 

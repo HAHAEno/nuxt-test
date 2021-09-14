@@ -54,11 +54,12 @@ export default {
     }
   },
   mounted () {
-    const currentWeatherData = this.$cookies.get('currentWeatherData')
+    let currentWeatherData = this.$cookies.get('currentWeatherData')
     if (currentWeatherData) {
       this.currentWeather = currentWeatherData
       this.SET_ISWEATHERLOADING(true)
     } else {
+      currentWeatherData = {}
       this.getWeather()
     }
     if (this.currentWeather.weather) {
